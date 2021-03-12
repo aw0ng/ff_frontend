@@ -9,7 +9,7 @@
       |
       <router-link to="/login">Login</router-link>
       |
-      <router-link to="/dogs">My Dogs</router-link>
+      <router-link to="/dogs">My Furiends</router-link>
     </div>
     <router-view />
   </div>
