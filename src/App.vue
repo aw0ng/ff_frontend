@@ -7,7 +7,9 @@
       |
       <router-link to="/signup">Signup</router-link>
       |
-      <router-link to="/dogs">All Dogs</router-link>
+      <router-link to="/login">Login</router-link>
+      |
+      <router-link to="/dogs">My Dogs</router-link>
     </div>
     <router-view />
   </div>
