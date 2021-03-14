@@ -4,11 +4,12 @@
     <div v-for="dog in dogs" v-bind:key="dog.id">
       <h2>{{ dog.name }}</h2>
       <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
-      <button v-on:click="showDog(dog)">More info</button>
+      <a v-bind:href="`/dogs/${dog.id}`">More Info</a>
+      <!-- <button v-on:click="showRecommendation(currentDog)">Recommendation</button> -->
     </div>
-    <dialog id="dog-details">
+    <!-- <dialog id="dog-recommendations">
       <form method="dialog">
-        <h1>Furiend Info</h1>
+        <h1>Recommendation</h1>
         <p>{{ currentDog.photo }}</p>
         <p>Name: {{ currentDog.name }}</p>
         <p>Owner: {{ currentDog.user }}</p>
@@ -20,7 +21,7 @@
         <p>Fitness: {{ currentDog.fitness }}</p>
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog> -->
   </div>
 </template>
 
@@ -47,10 +48,13 @@ export default {
       this.dogs = response.data;
     });
   },
-  showDog: function(dog) {
-    this.currentDog = dog;
-    document.querySelector("dog-details").showModal();
+  methods: {
+    // showRecommendation: function() {
+    //   this.currentDog = dog;
+    //   document.querySelector("dog-details").showModal();
+    // },
   },
-  methods: {},
 };
 </script>
+
+// FIX BROKEN MODAL

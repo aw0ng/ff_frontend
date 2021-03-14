@@ -9,7 +9,9 @@
       |
       <router-link to="/login">Login</router-link>
       |
-      <router-link to="/dogs">My Furiends</router-link>
+      <router-link to="/dogs">Our Furiends</router-link>
+      |
+      <router-link to="/dogs/new">New Furiend</router-link>
     </div>
     <router-view />
   </div>
