@@ -5,23 +5,7 @@
       <h2>{{ dog.name }}</h2>
       <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
       <a v-bind:href="`/dogs/${dog.id}`">More Info</a>
-      <!-- <button v-on:click="showRecommendation(currentDog)">Recommendation</button> -->
     </div>
-    <!-- <dialog id="dog-recommendations">
-      <form method="dialog">
-        <h1>Recommendation</h1>
-        <p>{{ currentDog.photo }}</p>
-        <p>Name: {{ currentDog.name }}</p>
-        <p>Owner: {{ currentDog.user }}</p>
-        <p>Breed: {{ currentDog.breed }}</p>
-        <p>Weight: {{ currentDog.weight }} lbs</p>
-        <p>Activity Level: {{ currentDog.min_of_activity }} minutes/day</p>
-        <p>Daily Calories: {{ currentDog.daily_kcal }}</p>
-        <p>Diet: {{ currentDog.diet }}</p>
-        <p>Fitness: {{ currentDog.fitness }}</p>
-        <button>Close</button>
-      </form>
-    </dialog> -->
   </div>
 </template>
 
@@ -39,7 +23,6 @@ export default {
   data: function() {
     return {
       dogs: [],
-      currentDog: {},
     };
   },
   created: function() {
@@ -56,5 +39,3 @@ export default {
   },
 };
 </script>
-
-// FIX BROKEN MODAL
