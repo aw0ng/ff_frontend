@@ -1,7 +1,11 @@
 <template>
   <div class="dogs-show">
-    <h2>{{ this.dog.name }}</h2>
-    <p>{{ this.dog.recommendation }}</p>
+    <h2>{{ this.dog.name }}'s Recommendation</h2>
+    <p></p>
+    <p>Healthy Weight: {{ this.dog.breed.weight }} lbs</p>
+    <p>Minimum Daily Activity: {{ this.dog.breed.min_of_activity }} minutes</p>
+    <p>Daily Calories: {{ this.dog.breed.daily_kcal }}</p>
+    <!-- <p>{{ this.dog.recommendations }}</p> -->
     <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
     <a href="/dogs">Back to Our Furiends</a>
   </div>
@@ -19,8 +23,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      dog: {},
-      recommendations: [],
+      dog: { name: "", image: "", breed: {} },
     };
   },
   created: function() {
