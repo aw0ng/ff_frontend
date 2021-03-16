@@ -5,28 +5,49 @@
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
-      Name:
-      <input type="text" v-model="newDogName" />
-      Image:
-      <input type="text" v-model="newDogImage" />
-      Breed:
-      <input type="text" v-model="newDogBreed" />
-      Weight:
-      <input type="text" v-model="newDogWeight" />
-      Minutes of Activity Per Day:
-      <input type="text" v-model="newDogMin_of_Activity" />
-      Daily Calories:
-      <input type="text" v-model="newDogDaily_Kcal" />
-      Diet:
-      <input type="text" v-model="newDogDiet" />
-      Fitness:
-      <input type="text" v-model="newDogFitness" />
-      <input type="submit" value="Create" />
+      <p>
+        Name:
+        <input type="text" v-model="newDogName" />
+      </p>
+      <p>
+        Image:
+        <input type="text" v-model="newDogImage" />
+      </p>
+      <p>
+        Breed:
+        <input type="text" v-model="newDogBreed" />
+      </p>
+      <p>
+        Weight:
+        <input type="text" v-model="newDogWeight" />
+      </p>
+      <p>
+        Daily Activity (minutes):
+        <input type="text" v-model="newDogMin_of_Activity" />
+      </p>
+      <p>
+        Daily Calories:
+        <input type="text" v-model="newDogDaily_Kcal" />
+      </p>
+      <p>
+        Diet:
+        <input type="text" v-model="newDogDiet" />
+      </p>
+      <p>
+        Fitness:
+        <input type="text" v-model="newDogFitness" />
+      </p>
+      <p><input type="submit" value="Create" /></p>
     </form>
   </div>
 </template>
 
-<style></style>
+<style scoped>
+.dogs-new {
+  margin-top: 5em;
+  margin-bottom: 2em;
+}
+</style>
 
 <script>
 import axios from "axios";

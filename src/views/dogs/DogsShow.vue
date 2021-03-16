@@ -7,11 +7,16 @@
     <p>Daily Calories: {{ this.dog.breed.daily_kcal }}</p>
     <!-- <p>{{ this.dog.recommendations }}</p> -->
     <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
-    <a href="/dogs">Back to Our Furiends</a>
+    <p></p>
+    <p><a class="back-to" href="/dogs">Back to Our Furiends</a></p>
   </div>
 </template>
 
-<style>
+<style scoped>
+.dogs-show {
+  margin-top: 7em;
+  margin-bottom: 2em;
+}
 img.resize {
   max-width: 50%;
   max-height: 50%;
