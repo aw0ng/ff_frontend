@@ -22,8 +22,9 @@
 
 <style scoped>
 .login {
-  margin-top: 6rem;
+  margin-top: 10rem;
   text-align: center;
+  margin-bottom: 10rem;
 }
 
 .form-group {
