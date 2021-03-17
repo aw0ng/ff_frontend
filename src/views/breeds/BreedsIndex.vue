@@ -1,19 +1,17 @@
 <template>
-  <div class="dogs-index">
+  <div class="breeds-index">
     <section class="page-section" id="contact">
       <div class="container">
         <!-- Contact Section Heading-->
-        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Our Furiends</h2>
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Breeds</h2>
         <!-- Icon Divider-->
         <div class="divider-custom">
           <div class="divider-custom-line"></div>
           <div class="divider-custom-icon"><i class="fas fa-paw"></i></div>
           <div class="divider-custom-line"></div>
         </div>
-        <div class="info" v-for="dog in dogs" v-bind:key="dog.id">
-          <h2>{{ dog.name }}</h2>
-          <img class="img" v-bind:src="dog.image" v-bind:alt="dog.name" />
-          <p><a v-bind:href="`/dogs/${dog.id}`">More Info</a></p>
+        <div class="info" v-for="breed in breeds" v-bind:key="breed.id">
+          <h2>{{ breed.name }}</h2>
         </div>
       </div>
     </section>
@@ -21,7 +19,7 @@
 </template>
 
 <style>
-.dogs-index {
+.breeds-index {
   margin-top: 10rem;
   width: 95%;
   text-align: center;
@@ -46,20 +44,15 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      dogs: [],
+      breeds: [],
     };
   },
   created: function() {
-    axios.get("/api/dogs").then(response => {
-      console.log("dogs index", response);
-      this.dogs = response.data;
+    axios.get("/api/breeds").then(response => {
+      console.log("breeds index", response);
+      this.breeds = response.data;
     });
   },
-  methods: {
-    // showRecommendation: function() {
-    //   this.currentDog = dog;
-    //   document.querySelector("dog-details").showModal();
-    // },
-  },
+  methods: {},
 };
 </script>

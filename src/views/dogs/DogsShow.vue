@@ -14,7 +14,7 @@
 
 <style scoped>
 .dogs-show {
-  margin-top: 7em;
+  margin-top: 5em;
   margin-bottom: 2em;
 }
 img.resize {
