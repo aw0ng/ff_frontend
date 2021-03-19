@@ -1,12 +1,20 @@
 <template>
   <div class="dogs-show">
-    <h2>{{ this.dog.name }}'s Recommendation</h2>
+    <h2>{{ this.dog.name }}'s Breed Info</h2>
     <p></p>
-    <p>Breed Info: {{ this.dog.breed }}</p>
-    <p>Healthy Weight: {{ this.dog.breed.weight }} lbs</p>
+    <p>Breed: {{ this.breed.name }}</p>
+    <p>Weight: {{ this.breed.weight.imperial }} lbs</p>
+    <p>Height: {{ this.breed.height.imperial }} inches</p>
+    <p>Life Span: {{ this.breed.life_span }}</p>
+    <p>Temperament: {{ this.breed.temperament }}</p>
+    <p>Group: {{ this.breed.breed_group }}</p>
+    <p>Originally bred for: {{ this.breed.bred_for }}</p>
+    <p>Is {{ this.dog.name }} within healthy weight range? {{ answer }}</p>
+    <!-- Breed info from breed model -->
+    <!-- <p>Healthy Weight: {{ this.dog.breed.weight }} lbs</p> -->
     <!-- <p>Diet: {{ diet.first.name }}</p> -->
-    <p>Minimum Daily Activity: {{ this.dog.breed.min_of_activity }} minutes</p>
-    <p>Daily Calories: {{ this.dog.breed.daily_kcal }}</p>
+    <!-- <p>Minimum Daily Activity: {{ this.dog.breed.min_of_activity }} minutes</p> -->
+    <!-- <p>Daily Calories: {{ this.dog.breed.daily_kcal }}</p> -->
     <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
     <p><a class="back-to" href="/dogs">Back to Our Furiends</a></p>
     <button v-on:click="setupMap()">Find A Dog Park</button>
@@ -38,7 +46,11 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      dog: { name: "", image: "", breed: {} },
+      dog: { name: "", image: "" },
+      breed: { name: "", weigth: "", height: "", life_span: "", temperament: "", bred_for: "" },
+      answer: "",
+      high_weight: "",
+      low_weight: "",
     };
   },
   created: function() {
@@ -49,8 +61,19 @@ export default {
       axios.get("/api/dogs/" + this.$route.params.id).then(response => {
         console.log(response.data);
         this.dog = response.data;
+        axios
+          .get("https://api.thedogapi.com/v1/breeds/" + this.dog.breed_id, {
+            headers: {
+              Authorization: "Bearer" + "31ae3f3a-fec0-45c1-951b-4af07336038e",
+            },
+          })
+          .then(response => {
+            console.log("breeds show", response);
+            this.breed = response.data;
+          });
       });
     },
+    weightAnswer: function() {},
     setupMap: function() {
       mapboxgl.accessToken = "pk.eyJ1IjoiYXcwbmciLCJhIjoiY2ttZTU1YzAwMnBsaTMzb2NuZHBjazlkZCJ9.DroXcFdUavBtQygqu0qPHA";
       var map = new mapboxgl.Map({

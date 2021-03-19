@@ -36,7 +36,7 @@
                   </option>
                 </select>
               </div>
-              <!-- Breed -->
+              <!-- Breed from model -->
               <!-- <div class="form-group">
                 <label>Breed</label>
                 <select class="form-control" v-model="newDogBreed">
