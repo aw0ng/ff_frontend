@@ -36,6 +36,15 @@
                   </option>
                 </select>
               </div>
+              <!-- Breed -->
+              <!-- <div class="form-group">
+                <label>Breed</label>
+                <select class="form-control" v-model="newDogBreed">
+                  <option v-for="breed in breeds" v-bind:key="breed.id" v-bind:value="breed.id">
+                    {{ breed.name }}
+                  </option>
+                </select>
+              </div> -->
               <!-- Weight -->
               <div class="form-group">
                 <label>Weight</label>
@@ -108,6 +117,7 @@
 
 <script>
 import axios from "axios";
+// import { response } from "express";
 
 export default {
   data: function() {
@@ -127,10 +137,10 @@ export default {
     };
   },
   created: function() {
-    axios.get("/api/breeds").then(response => {
-      console.log("breeds index", response);
-      this.breeds = response.data;
-    });
+    // axios.get("/api/breeds").then(response => {
+    //   console.log("breeds index", response);
+    //   this.breeds = response.data;
+    // });
     axios.get("/api/diets").then(response => {
       console.log("diets index", response);
       this.diets = response.data;
@@ -139,6 +149,16 @@ export default {
       console.log("fitnesses index", response);
       this.fitnesses = response.data;
     });
+    axios
+      .get("https://api.thedogapi.com/v1/breeds", {
+        headers: {
+          Authorization: "Bearer" + "31ae3f3a-fec0-45c1-951b-4af07336038e",
+        },
+      })
+      .then(response => {
+        console.log("breeds index", response);
+        this.breeds = response.data;
+      });
   },
   methods: {
     createDog: function() {
