@@ -18,139 +18,72 @@
                 <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
               </ul>
               <!-- Name -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Name"
-                    required="required"
-                    data-validation-required-message="Please enter your furiend's name."
-                    v-model="newDogName"
-                  />
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" placeholder="Your Furiend's Name" class="form-control" v-model="newDogName" />
               </div>
               <!-- Image -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Image"
-                    required="required"
-                    data-validation-required-message="Please enter image url."
-                    v-model="newDogImage"
-                  />
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Image</label>
+                <input type="text" placeholder="Photo URL of Your Friend" class="form-control" v-model="newDogImage" />
               </div>
               <!-- Breed -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Breed"
-                    required="required"
-                    data-validation-required-message="Please enter your furiend's weight."
-                  />
-                  <select class="form-control" v-model="newDogBreed">
-                    <option v-for="breed in breeds" v-bind:key="breed.id" v-bind:value="breed.id">
-                      {{ breed.name }}
-                    </option>
-                  </select>
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Breed</label>
+                <select class="form-control" v-model="newDogBreed">
+                  <option v-for="breed in breeds" v-bind:key="breed.id" v-bind:value="breed.id">
+                    {{ breed.name }}
+                  </option>
+                </select>
               </div>
               <!-- Weight -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Weight"
-                    required="required"
-                    data-validation-required-message="Please enter your furiend's weight."
-                  />
-                  <select class="form-control" v-model="newDogWeight">
-                    <option disabled value="">Please select one</option>
-                    <option>10</option>
-                  </select>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <!-- Fitness -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Activity"
-                    required="required"
-                    data-validation-required-message="Please enter preferred activity."
-                  />
-                  <select class="form-control" v-model="newDogFitness">
-                    <option v-for="fitness in fitnesses" v-bind:key="fitness.id" v-bind:value="fitness.id">
-                      {{ fitness.activity }}
-                    </option>
-                  </select>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <!-- Activity Minutes -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Minutes Per Day"
-                    required="required"
-                    data-validation-required-message="Please enter daily activity in minutes."
-                    v-model="newDogMin_of_Activity"
-                  />
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Weight</label>
+                <input
+                  type="text"
+                  placeholder="Your Furiend's Weight in Pounds"
+                  class="form-control"
+                  v-model="newDogWeight"
+                />
               </div>
               <!-- Diet -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Diet"
-                    required="required"
-                    data-validation-required-message="Please enter type of food."
-                  />
-                  <select class="form-control" v-model="newDogDiet">
-                    <option v-for="diet in diets" v-bind:key="diet.id" v-bind:value="diet.id">
-                      {{ diet.brand }}
-                    </option>
-                  </select>
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Diet</label>
+                <select class="form-control" v-model="newDogDiet">
+                  <option v-for="diet in diets" v-bind:key="diet.id" v-bind:value="diet.id">
+                    {{ diet.brand }}
+                  </option>
+                </select>
               </div>
               <!-- Daily Kcal -->
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <input
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Daily Calories"
-                    required="required"
-                    data-validation-required-message="Please enter daily calories consumed."
-                    v-model="newDogDaily_Kcal"
-                  />
-                  <p class="help-block text-danger"></p>
-                </div>
+              <div class="form-group">
+                <label>Daily Calories</label>
+                <input
+                  type="text"
+                  placeholder="Your Furiend's Daily Calorie Intake"
+                  class="form-control"
+                  v-model="newDogDaily_Kcal"
+                />
+              </div>
+              <!-- Fitness -->
+              <div class="form-group">
+                <label>Activity</label>
+                <select class="form-control" v-model="newDogFitness">
+                  <option v-for="fitness in fitnesses" v-bind:key="fitness.id" v-bind:value="fitness.id">
+                    {{ fitness.activity }}
+                  </option>
+                </select>
+              </div>
+              <!-- Activity Minutes -->
+              <div class="form-group">
+                <label>Daily Minutes of Activity</label>
+                <select class="form-control" v-model="newDogMin_of_Activity">
+                  <option>15</option>
+                  <option>30</option>
+                  <option>45</option>
+                  <option>60</option>
+                  <option>75</option>
+                </select>
               </div>
               <br />
               <div id="success"></div>

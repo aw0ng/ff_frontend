@@ -13,7 +13,9 @@
         <div class="info" v-for="dog in dogs" v-bind:key="dog.id">
           <h2>{{ dog.name }}</h2>
           <img class="img" v-bind:src="dog.image" v-bind:alt="dog.name" />
-          <p><a v-bind:href="`/dogs/${dog.id}`">More Info</a></p>
+          <p>
+            <a v-bind:href="`/dogs/${dog.id}`">{{ dog.name }}'s Recommendation</a>
+          </p>
         </div>
       </div>
     </section>
