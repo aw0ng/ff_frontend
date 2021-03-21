@@ -1,5 +1,20 @@
 <template>
   <div class="dogs-show">
+    <h2>{{ this.dog.name }}'s Recommendation</h2>
+    <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
+    <p>Is {{ this.dog.name }} within healthy weight range? {{ answer }}</p>
+    <p>{{ this.dog.name }} is {{ weight_diff }} lbs overweight</p>
+    <p>{{ this.dog.name }} should eat {{ kcal_diff }} fewer calories per day</p>
+    <div class="dogs-show" v-for="exercise in exercises" v-bind:key="exercise.id">
+      <h3>{{ exercise.breed_group }}</h3>
+    </div>
+    <!-- <h3 v-if={{ this.breed.breed_group }} === {{  }} >Vue is awesome!</h3> -->
+    <p></p>
+    <img class="chart" src="https://www.petmd.com/sites/default/files/feeding-chart.jpg" v-bind:alt="this.dog.name" />
+    <p>{{ this.dog.name }} needs {{ activity_diff }} more minutes of activity per day</p>
+    <button v-on:click="setupMap()">Find A Dog Park</button>
+    <p></p>
+    <div id="map"></div>
     <h2>{{ this.dog.name }}'s Breed Info</h2>
     <p></p>
     <p>Breed: {{ this.breed.name }}</p>
@@ -9,18 +24,7 @@
     <p>Temperament: {{ this.breed.temperament }}</p>
     <p>Group: {{ this.breed.breed_group }}</p>
     <p>Originally bred for: {{ this.breed.bred_for }}</p>
-    <p>Is {{ this.dog.name }} within healthy weight range? {{ answer }}</p>
-    <!-- Breed info from breed model -->
-    <!-- <p>Healthy Weight: {{ this.dog.breed.weight }} lbs</p> -->
-    <!-- <p>Diet: {{ diet.first.name }}</p> -->
-    <!-- <p>Minimum Daily Activity: {{ this.dog.breed.min_of_activity }} minutes</p> -->
-    <!-- <p>Daily Calories: {{ this.dog.breed.daily_kcal }}</p> -->
-    <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
     <p><a class="back-to" href="/dogs">Back to Our Furiends</a></p>
-    <button v-on:click="setupMap()">Find A Dog Park</button>
-    <p></p>
-    <div id="map"></div>
-    <p></p>
   </div>
 </template>
 
@@ -33,6 +37,10 @@ img.resize {
   max-width: 30%;
   max-height: 30%;
 }
+img.chart {
+  max-width: 100%;
+  max-height: 100%;
+}
 #map {
   width: 100%;
   height: 400px;
@@ -42,13 +50,19 @@ img.resize {
 <script>
 /* global mapboxgl */
 /* global MapboxGeocoder */
+
 import axios from "axios";
 export default {
   data: function() {
     return {
       dog: { name: "", image: "" },
       breed: { name: "", weigth: "", height: "", life_span: "", temperament: "", bred_for: "" },
-      answer: "",
+      answer: "No",
+      weight_diff: "40",
+      activity_diff: "30",
+      kcal_diff: "600",
+      exercises: [],
+      breed_group: "",
       high_weight: "",
       low_weight: "",
     };
@@ -71,6 +85,9 @@ export default {
             console.log("breeds show", response);
             this.breed = response.data;
           });
+      });
+      axios.get("/api/exercises").then(response => {
+        console.log("exercises index", response.data);
       });
     },
     weightAnswer: function() {},
