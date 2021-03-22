@@ -14,7 +14,7 @@
           <h2>{{ dog.name }}</h2>
           <img class="img" v-bind:src="dog.image" v-bind:alt="dog.name" />
           <p>
-            <a v-bind:href="`/dogs/${dog.id}`">{{ dog.name }}'s Recommendation</a>
+            <a class="link" v-bind:href="`/dogs/${dog.id}`">{{ dog.name }}'s Recommendation</a>
           </p>
         </div>
       </div>
@@ -40,6 +40,9 @@
   margin-bottom: 2rem;
   text-align: center;
 }
+.link {
+  color: #1abc9c;
+}
 </style>
 
 <script>
@@ -57,11 +60,6 @@ export default {
       this.dogs = response.data;
     });
   },
-  methods: {
-    // showRecommendation: function() {
-    //   this.currentDog = dog;
-    //   document.querySelector("dog-details").showModal();
-    // },
-  },
+  methods: {},
 };
 </script>

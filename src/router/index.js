@@ -7,6 +7,7 @@ import DogsIndex from "../views/dogs/DogsIndex.vue";
 import DogsNew from "../views/dogs/DogsNew.vue";
 import DogsShow from "../views/dogs/DogsShow.vue";
 import BreedsIndex from "../views/breeds/BreedsIndex.vue";
+import DogParks from "../views/DogParks.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,11 @@ const routes = [
     path: "/breeds",
     name: "breeds-index",
     component: BreedsIndex,
+  },
+  {
+    path: "/dogparks",
+    name: "dog-parks",
+    component: DogParks,
   },
 ];
 

@@ -1,29 +1,30 @@
 <template>
   <div class="dogs-show">
-    <h2>{{ this.dog.name }}'s Recommendation</h2>
+    <h2>{{ dog.name }}'s Recommendation</h2>
     <img class="resize" v-bind:src="dog.image" v-bind:alt="dog.name" />
-    <p>Is {{ this.dog.name }} within healthy weight range? {{ answer }}</p>
-    <p>{{ this.dog.name }} is {{ weight_diff }} lbs overweight</p>
-    <p>{{ this.dog.name }} should eat {{ kcal_diff }} fewer calories per day</p>
+    <br />
+    <p>{{ dog.name }} is {{ weightDiff() }} lbs overweight</p>
+    <p>{{ dog.name }} should eat {{ weightDiff() * 25 }} fewer calories per day</p>
     <div class="dogs-show" v-for="exercise in exercises" v-bind:key="exercise.id">
-      <h3>{{ exercise.breed_group }}</h3>
+      <div v-if="exercise.breed_group === breed.breed_group">
+        Bobby needs {{ exercise.min_activity - dog.min_of_activity }} more minutes of activity per day.
+      </div>
     </div>
-    <!-- <h3 v-if={{ this.breed.breed_group }} === {{  }} >Vue is awesome!</h3> -->
     <p></p>
-    <img class="chart" src="https://www.petmd.com/sites/default/files/feeding-chart.jpg" v-bind:alt="this.dog.name" />
-    <p>{{ this.dog.name }} needs {{ activity_diff }} more minutes of activity per day</p>
-    <button v-on:click="setupMap()">Find A Dog Park</button>
+    <img class="chart" src="https://www.petmd.com/sites/default/files/feeding-chart.jpg" v-bind:alt="dog.name" />
+    <!-- <button v-on:click="">Find A Dog Park</button> -->
+    <a href="/dogparks">Find a Dog Park</a>
     <p></p>
-    <div id="map"></div>
-    <h2>{{ this.dog.name }}'s Breed Info</h2>
+    <h2>{{ dog.name }}'s Breed Info</h2>
     <p></p>
-    <p>Breed: {{ this.breed.name }}</p>
-    <p>Weight: {{ this.breed.weight.imperial }} lbs</p>
-    <p>Height: {{ this.breed.height.imperial }} inches</p>
-    <p>Life Span: {{ this.breed.life_span }}</p>
-    <p>Temperament: {{ this.breed.temperament }}</p>
-    <p>Group: {{ this.breed.breed_group }}</p>
-    <p>Originally bred for: {{ this.breed.bred_for }}</p>
+    <p>Breed: {{ breed.name }}</p>
+    <p>Weight: {{ breed.weight.imperial }} lbs</p>
+    <p>Weight: {{ goal_weight_range }} lbs</p>
+    <p>Height: {{ breed.height.imperial }} inches</p>
+    <p>Life Span: {{ breed.life_span }}</p>
+    <p>Temperament: {{ breed.temperament }}</p>
+    <p>Group: {{ breed.breed_group }}</p>
+    <p>Originally bred for: {{ breed.bred_for }}</p>
     <p><a class="back-to" href="/dogs">Back to Our Furiends</a></p>
   </div>
 </template>
@@ -41,28 +42,22 @@ img.chart {
   max-width: 100%;
   max-height: 100%;
 }
-#map {
-  width: 100%;
-  height: 400px;
-}
 </style>
 
 <script>
-/* global mapboxgl */
-/* global MapboxGeocoder */
-
 import axios from "axios";
 export default {
   data: function() {
     return {
       dog: { name: "", image: "" },
-      breed: { name: "", weigth: "", height: "", life_span: "", temperament: "", bred_for: "" },
+      breed: { name: "", weight: "", height: "", life_span: "", temperament: "", bred_for: "", imperial: "" },
       answer: "No",
-      weight_diff: "40",
-      activity_diff: "30",
+      // weight_diff: "",
       kcal_diff: "600",
       exercises: [],
       breed_group: "",
+      goal_weight_range: "",
+      goal_weight: "",
       high_weight: "",
       low_weight: "",
     };
@@ -84,69 +79,22 @@ export default {
           .then(response => {
             console.log("breeds show", response);
             this.breed = response.data;
+            axios.get("/api/exercises").then(response => {
+              console.table(response.data);
+              this.exercises = response.data;
+            });
           });
       });
-      axios.get("/api/exercises").then(response => {
-        console.log("exercises index", response.data);
-      });
     },
-    weightAnswer: function() {},
-    setupMap: function() {
-      mapboxgl.accessToken = "pk.eyJ1IjoiYXcwbmciLCJhIjoiY2ttZTU1YzAwMnBsaTMzb2NuZHBjazlkZCJ9.DroXcFdUavBtQygqu0qPHA";
-      var map = new mapboxgl.Map({
-        container: "map", // Container ID
-        style: "mapbox://styles/mapbox/streets-v11", // Map style to use
-        center: [-122.25948, 37.87221], // Starting position [lng, lat]
-        zoom: 12, // Starting zoom level
-      });
-      console.log(map);
-      var marker = new mapboxgl.Marker() // initialize a new marker
-        .setLngLat([-122.25948, 37.87221]) // Marker [lng, lat] coordinates
-        .addTo(map); // Add the marker to the map
-      console.log(marker);
-      var geocoder = new MapboxGeocoder({
-        // Initialize the geocoder
-        accessToken: mapboxgl.accessToken, // Set the access token
-        mapboxgl: mapboxgl, // Set the mapbox-gl instance
-        marker: false, // Do not use the default marker style
-        placeholder: "Search for places in Berkeley", // Placeholder text for the search bar
-        bbox: [-122.30937, 37.84214, -122.23715, 37.89838], // Boundary for Berkeley
-        proximity: {
-          longitude: -122.25948,
-          latitude: 37.87221,
-        }, // Coordinates of UC Berkeley',
-      });
-
-      // Add the geocoder to the map
-      map.addControl(geocoder);
-      // After the map style has loaded on the page,
-      // add a source layer and default styling for a single point
-      map.on("load", function() {
-        map.addSource("single-point", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [],
-          },
-        });
-
-        map.addLayer({
-          id: "point",
-          source: "single-point",
-          type: "circle",
-          paint: {
-            "circle-radius": 10,
-            "circle-color": "#448ee4",
-          },
-        });
-
-        // Listen for the `result` event from the Geocoder
-        // `result` event is triggered when a user makes a selection
-        //  Add a marker at the result's coordinates
-        geocoder.on("result", function(e) {
-          map.getSource("single-point").setData(e.result.geometry);
-        });
-      });
+    weightDiff: function() {
+      weight_diff = [];
+      var goal_weight_range = this.breed.weight.imperial.split(" ");
+      var high_weight = parseInt(goal_weight_range[2]);
+      var low_weight = parseInt(goal_weight_range[0]);
+      var weight_diff = this.dog.weight - high_weight;
+      console.log(low_weight, weight_diff);
+      console.log(goal_weight_range);
+      return weight_diff;
     },
   },
 };
