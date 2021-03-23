@@ -25,7 +25,13 @@
               <!-- Image -->
               <div class="form-group">
                 <label>Image</label>
-                <input type="text" placeholder="Photo URL of Your Friend" class="form-control" v-model="newDogImage" />
+                <input
+                  type="file"
+                  placeholder="Photo of Your Furiend"
+                  class="form-control"
+                  v-on:change="setFile($event)"
+                  ref="fileInput"
+                />
               </div>
               <!-- Breed -->
               <div class="form-group">
@@ -134,6 +140,7 @@ export default {
       diets: [],
       fitnesses: [],
       errors: [],
+      newDog: null,
     };
   },
   created: function() {
@@ -161,27 +168,51 @@ export default {
       });
   },
   methods: {
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.newDogImage = event.target.files[0];
+      }
+    },
     createDog: function() {
-      var params = {
-        name: this.newDogName,
-        breed_id: this.newDogBreed,
-        weight: this.newDogWeight,
-        min_of_activity: this.newDogMin_of_Activity,
-        daily_kcal: this.newDogDaily_Kcal,
-        diet_id: this.newDogDiet,
-        fitness_id: this.newDogFitness,
-        image: this.newDogImage,
-      };
+      var formData = new FormData();
+      formData.append("name", this.newDogName);
+      formData.append("breed_id", this.newDogBreed);
+      formData.append("weight", this.newDogWeight);
+      formData.append("min_of_activity", this.newDogMin_of_Activity);
+      formData.append("daily_kcal", this.newDogDaily_Kcal);
+      formData.append("diet_id", this.newDogDiet);
+      formData.append("fitness_id", this.newDogFitness);
+      formData.append("image", this.newDogImage);
+      // var params = {
+      //   name: this.newDogName,
+      //   breed_id: this.newDogBreed,
+      //   weight: this.newDogWeight,
+      //   min_of_activity: this.newDogMin_of_Activity,
+      //   daily_kcal: this.newDogDaily_Kcal,
+      //   diet_id: this.newDogDiet,
+      //   fitness_id: this.newDogFitness,
+      //   image: this.newDogImage,
+      // };
       axios
-        .post("/api/dogs", params)
+        .post("/api/dogs", formData)
         .then(response => {
+          this.newDog = response.data;
+          console.log(this.newDog);
           console.log("dogs create", response);
-          this.$router.push("/dogs");
+          // this.$router.push("/dogs/" + this.dog.id);
+        })
+        .then(() => {
+          this.showDog();
         })
         .catch(error => {
           console.log("dogs create error", error.response);
           this.errors = error.response.data.errors;
         });
+    },
+    showDog: function() {
+      console.log("show dog");
+      console.log(this.newDog.id);
+      this.$router.push("/dogs/" + this.newDog.id);
     },
   },
 };

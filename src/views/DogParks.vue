@@ -2,7 +2,7 @@
   <div class="dog-parks">
     <div class="sidebar">
       <div class="heading">
-        <h1>Dog Parks</h1>
+        <h1><a href="/dogparks">Dog Parks</a></h1>
       </div>
       <div id="listings" class="listings"></div>
     </div>
@@ -31,7 +31,7 @@ body {
   position: absolute;
   width: 33.3333%;
   height: 100%;
-  margin-top: 6em;
+  margin-top: 7em;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -46,13 +46,13 @@ body {
   bottom: 0;
 }
 
-h1 {
+/* h1 {
   font-size: 22px;
   margin: 0;
   font-weight: 400;
   line-height: 20px;
   padding: 20px 2px;
-}
+} */
 
 a {
   color: #404040;
