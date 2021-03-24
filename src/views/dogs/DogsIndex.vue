@@ -66,12 +66,19 @@
                   <!-- Portfolio Modal - Image-->
                   <img class="img-fluid img-cover" v-bind:src="currentDog.image" v-bind:alt="currentDog.name" />
                   <br />
+                  <br />
                   <!-- Portfolio Modal - Text-->
-                  <p class="mb-5">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil,
-                  </p>
-                  <p>{{ currentDog.weight }} lbs</p>
-                  <p>{{ currentDog.min_of_activity }} minutes a day</p>
+                  <h5>
+                    {{ currentDog.name }} is {{ currentDog.weight }} lbs and exercises
+                    {{ currentDog.min_of_activity }} minutes a day
+                  </h5>
+                  <br />
+                  <button class="btn btn-primary" data-dismiss="modal" v-on:click="showRecommendation()">
+                    <i class="fas fa-times fa-fw"></i>
+                    Recommendation
+                  </button>
+                  <br />
+                  <br />
                   <button class="btn btn-primary" data-dismiss="modal">
                     <i class="fas fa-times fa-fw"></i>
                     Close Window
@@ -135,6 +142,9 @@ export default {
     setCurrentDog: function(dog) {
       this.currentDog = dog;
       console.log("dogs name", dog.name);
+    },
+    showRecommendation: function() {
+      this.$router.push("/dogs/" + this.currentDog.id);
     },
   },
 };

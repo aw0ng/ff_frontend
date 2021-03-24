@@ -8,42 +8,57 @@
           <img class="img-fluid" v-bind:src="dog.image" v-bind:alt="dog.name" />
           <br />
           <br />
-          <button class="button" v-on:click="/dogparks">Find a Dog Park</button>
-          <br />
-          <br />
-          <button class="button" v-on:click="/dogs">Back to Our Furiends</button>
+          <!-- <div v-if="weightDiff > 0"> -->
+          <h6>{{ dog.name }} is {{ weightDiff() }} lbs overweight</h6>
+          <div v-for="exercise in exercises" v-bind:key="exercise.id">
+            <div v-if="exercise.breed_group === breed.breed_group">
+              <div v-if="dog.min_of_activity === exercise.min_activity">
+                <h6>{{ dog.name }} should eat {{ weightDiff() * 25 }} fewer daily calories</h6>
+              </div>
+              <div v-if="exercise.min_activity - dog.min_of_activity > 0">
+                <h6>
+                  {{ dog.name }} needs {{ exercise.min_activity - dog.min_of_activity }} more minutes of activity per
+                  day
+                </h6>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
         </div>
       </div>
       <div class="col-sm">
         <div class="item2">
-          <h6>{{ dog.name }} is {{ weightDiff() }} lbs overweight</h6>
-          <h6>{{ dog.name }} should eat {{ weightDiff() * 25 }} fewer calories per day</h6>
-          <div v-for="exercise in exercises" v-bind:key="exercise.id">
-            <div v-if="exercise.breed_group === breed.breed_group">
-              <h6>
-                {{ dog.name }} needs {{ exercise.min_activity - dog.min_of_activity }} more minutes of activity per day
-              </h6>
-            </div>
-          </div>
+          <br />
+          <br />
+          <h5>{{ this.dog.name }}'s Breed</h5>
+          <br />
+          <h6>Name: {{ breed.name }}</h6>
+          <h6>Weight: {{ breed.weight.imperial }} lbs</h6>
+          <h6>Height: {{ breed.height.imperial }} inches</h6>
+          <h6>Life Span: {{ breed.life_span }}</h6>
+          <h6>Temperament: {{ breed.temperament }}</h6>
+          <h6>Group: {{ breed.breed_group }}</h6>
+          <h6>Originally bred for: {{ breed.bred_for }}</h6>
+          <br />
+          <br />
+          <button class="button" v-on:click="showDogParks()">Find a Dog Park</button>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="item3">
+          <br />
+          <br />
+          <br />
           <br />
           <img
             class="img-fluid"
             src="https://www.petmd.com/sites/default/files/feeding-chart.jpg"
             v-bind:alt="dog.name"
           />
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="item3">
-          <h5>{{ this.dog.name }}'s Breed</h5>
           <br />
-          <h6>Name: {{ breed.name }}</h6>
-          <h6>Weight: {{ breed.weight.imperial }} lbs</h6>
-          <h6>Height: {{ breed.height.imhperial }} inches</h6>
-          <h6>Life Span: {{ breed.life_span }}</h6>
-          <h6>Temhperament: {{ breed.temhperament }}</h6>
-          <h6>Group: {{ breed.breed_group }}</h6>
-          <h6>Originally bred for: {{ breed.bred_for }}</h6>
+          <br />
+          <br />
+          <button class="button" v-on:click="backToDogs()">Back to Our Furiends</button>
         </div>
       </div>
     </div>
@@ -75,7 +90,7 @@ export default {
       dog: { name: "", image: "" },
       breed: { name: "", weight: "", height: "", life_span: "", temperament: "", bred_for: "", imperial: "" },
       answer: "No",
-      // weight_diff: "",
+      weight_diff: "",
       kcal_diff: "600",
       exercises: [],
       breed_group: "",
@@ -122,7 +137,12 @@ export default {
       console.log(goal_weight_range);
       return weight_diff;
     },
-    showDogParks: function() {},
+    showDogParks: function() {
+      this.$router.push("/dogparks");
+    },
+    backToDogs: function() {
+      this.$router.push("/dogs");
+    },
   },
 };
 </script>
