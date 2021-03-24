@@ -5,8 +5,8 @@
       <div class="container d-flex align-items-center flex-column">
         <!-- Masthead Avatar Image-->
         <img
-          class="masthead-avatar mb-5"
-          src="https://www.kindpng.com/picc/m/85-850853_am-i-fat-fat-dog-hd-png-download.png"
+          class="masthead-avatar mb-5 pug"
+          src="https://res.cloudinary.com/djb3bnhkq/image/upload/v1616615948/AnnasDog_uncn8k.png"
           alt=""
         />
         <!-- Masthead Heading-->
@@ -23,3 +23,9 @@
     </header>
   </div>
 </template>
+
+<style scoped>
+.pug {
+  width: 400px;
+}
+</style>
